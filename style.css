@@ -1,0 +1,420 @@
+/* Import Font */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap');
+
+/* Basic Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #4b7bec, #a265f0, #ffc478);
+    background-size: 200% 200%;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    overflow-x: hidden;
+    animation: background-animate 20s infinite alternate;
+}
+@keyframes background-animate {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+/* --- Layout Utama dengan CSS Grid --- */
+.main-layout {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    gap: 30px;
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    max-width: 1000px;
+    width: 95%;
+    transform: scale(0.95);
+    opacity: 0;
+    animation: pop-in 1s forwards;
+    animation-delay: 1.5s;
+}
+@keyframes pop-in {
+    to { transform: scale(1); opacity: 1; }
+}
+
+.card {
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.header-card {
+    grid-column: 1 / -1;
+    text-align: center;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    color: #fff;
+}
+
+.message-card {
+    grid-column: 1;
+    text-align: center;
+}
+
+.gallery-card {
+    grid-column: 2;
+    overflow: hidden;
+}
+
+.wishes-card {
+    grid-column: 1 / -1;
+    text-align: left;
+}
+
+.surprise-card {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(45deg, #84fab0, #8fd3f4);
+    color: #fff;
+    text-align: center;
+}
+
+.footer-card {
+    grid-column: 1 / -1;
+    text-align: center;
+    background-color: #f5f5f5;
+    color: #777;
+}
+
+/* --- Elemen Card --- */
+h1 {
+    font-family: 'Pacifico', cursive;
+    color: #fff;
+    font-size: 3.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+h2 {
+    font-family: 'Pacifico', cursive;
+    color: #ff7b00;
+    font-size: 2.2em;
+    margin-bottom: 20px;
+}
+
+.main-photo {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin: 15px auto;
+}
+
+.nickname {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+#birthday-message {
+    font-size: 1.2em;
+    line-height: 1.6;
+    min-height: 50px;
+    font-style: italic;
+    color: #666;
+}
+
+.wishes-card ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+.wishes-card li {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    padding-left: 25px;
+    position: relative;
+    color: #4a4a4a;
+}
+.wishes-card li:before {
+    content: '✨';
+    position: absolute;
+    left: 0;
+}
+
+.surprise-btn {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 15px 30px;
+    border-radius: 50px;
+    border: none;
+    background: linear-gradient(45deg, #ffbe0b, #ff7b00);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+.surprise-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+}
+.gallery-img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.gallery-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Modal Styling --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    animation: fade-in 0.5s ease-out;
+}
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background-color: #fefefe;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: zoom-in 0.5s ease-out;
+}
+@keyframes zoom-in {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-title {
+    font-family: 'Pacifico', cursive;
+    color: #ff1493;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+.modal-text {
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 20px;
+}
+.modal-button {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.1em;
+    padding: 10px 25px;
+    border-radius: 30px;
+    border: none;
+    background-color: #ff1493;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.modal-button:hover {
+    background-color: #d6006e;
+    transform: translateY(-2px);
+}
+
+/* Close button for modals */
+.close-troll-modal, .close-image-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.close-troll-modal:hover, .close-image-modal:hover {
+    color: #000;
+}
+
+/* Troll Modal Specific Styling */
+.troll-modal .modal-content {
+    max-width: 600px;
+    background: linear-gradient(135deg, #ffeb3b, #ff9800);
+    border: 3px solid #f44336;
+    color: #333;
+}
+.troll-modal .modal-title {
+    color: #c62828;
+}
+.troll-modal .modal-text {
+    color: #424242;
+    font-weight: 700;
+}
+.troll-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+.troll-img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 3px solid #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+.troll-img:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Modal galeri yang diperbesar */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto; /* Mengaktifkan scroll pada modal itu sendiri */
+    animation: fade-in 0.5s ease-out;
+}
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content-img {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    
+    /* Penyesuaian baru untuk scroll */
+    max-height: 85vh; /* Batasi tinggi gambar maksimal 85% dari tinggi layar */
+    object-fit: contain; /* Memastikan gambar pas dalam wadah tanpa terpotong */
+}
+
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #fff;
+    padding: 10px 0;
+    height: 150px;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Efek Bintang di Latar Belakang */
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    background: transparent;
+}
+.stars:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(white 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: sparkle 20s infinite alternate;
+}
+@keyframes sparkle {
+    from { background-position: 0 0; }
+    to { background-position: 100% 100%; }
+}
+
+/* Hidden class */
+.hidden {
+    display: none;
+}
+
+/* Responsif untuk layar kecil */
+@media (max-width: 768px) {
+    .main-layout {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+    .header-card, .message-card, .wishes-card, .surprise-card, .gallery-card, .footer-card {
+        grid-column: 1;
+    }
+    .main-photo {
+        width: 150px;
+        height: 150px;
+    }
+    h1 {
+        font-size: 2.5em;
+    }
+    h2 {
+        font-size: 1.8em;
+    }
+    .modal-content {
+        padding: 20px;
+    }
+    .troll-gallery {
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    }
+}

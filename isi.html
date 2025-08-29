@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday, Sayangku!</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="icon" href="images/birthday-cake.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+        /* Tombol kontrol musik */
+        #musicControl {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: #ff4081;
+            color: white;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 14px;
+            z-index: 1000;
+            display: none; /* awalnya disembunyikan */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        #musicControl:hover {
+            background: #e73370;
+        }
+    </style>
+
+    <div class="stars"></div>
+</head>
+<body>
+    <div id="birthdayModal" class="modal">
+        <div class="modal-content">
+            <h2 class="modal-title">Selamat Ulang Tahun, Sayang 🎉</h2>
+            <p class="modal-text">Semoga senantiasa bahagia dan sehat selalu yaaa</p>
+            <button class="modal-button" id="closeModal">Lanjut</button>
+        </div>
+    </div>
+    
+    <div class="main-layout">
+        <header class="card header-card">
+            <h1>Happy Birthday!</h1>
+            <img src="images/foto awal.jpg" alt="Foto cantik" class="main-photo" />
+            <p class="nickname">To my sunshine, Najla Dara Ayunda 🎂</p>
+        </header>
+
+        <section class="card message-card">
+            <p id="birthday-message"></p>
+        </section>
+
+        <section class="card gallery-card">
+            <h2>Foto Bidadari</h2>
+            <div class="gallery">
+                <img src="images/1.jpg" alt="Foto 1" class="gallery-img" />
+                <img src="images/2.jpg" alt="Foto 2" class="gallery-img" />
+                <img src="images/3.jpg" alt="Foto 3" class="gallery-img" />
+                <img src="images/4.jpg" alt="Foto 4" class="gallery-img" />
+                <img src="images/5.jpg" alt="Foto 5" class="gallery-img" />
+                <img src="images/6.jpg" alt="Foto 6" class="gallery-img" />
+                <img src="images/7.jpg" alt="Foto 7" class="gallery-img" />
+                <img src="images/8.jpg" alt="Foto 8" class="gallery-img" />
+                <img src="images/9.jpg" alt="Foto 9" class="gallery-img" />
+                <img src="images/10.jpg" alt="Foto 10" class="gallery-img" />
+                <img src="images/11.jpg" alt="Foto 11" class="gallery-img" />
+                <img src="images/12.jpg" alt="Foto 12" class="gallery-img" />
+            </div>
+        </section>
+
+        <section class="card wishes-card">
+            <h2>Harapan untuk kamu di ulang tahun ini</h2>
+            <ul>
+                <li>Semoga km selalu kesehatan dan rezeki yang berlimpah.</li>
+                <li>Semoga keinginan yang km blm tercapai bisa tercapai di tahun ini.</li>
+                <li>Semoga kita bisa terus menciptakan lebih banyak kenangan indah bersama.</li>
+                <li>Semoga segala urusan km dipermudah setiap langkahnya.</li>
+                <li>Semoga km selalu mendapatkan kekuatan dan ketabahan dalam menghadapi segala tantangan.</li>
+            </ul>
+        </section>
+
+        <section class="card surprise-card">
+            <button id="surprise-btn" class="surprise-btn">jangan di klik kocak</button>
+        </section>
+        
+        <footer class="card footer-card">
+            <p>Dibuat dengan ❤️</p>
+        </footer>
+    </div>
+    
+    <div id="trollModal" class="modal troll-modal">
+        <div class="modal-content troll-content">
+            <span class="close-troll-modal">&times;</span>
+            <h2 class="modal-title">Bjir amat dah dikasih tau</h2>
+            <div class="troll-gallery">
+                <img src="images/troll1.jpg" alt="Foto Anomali 1" class="troll-img" />
+                <img src="images/troll2.jpg" alt="Foto Anomali 2" class="troll-img" />
+                <img src="images/troll3.jpg" alt="Foto Anomali 3" class="troll-img" />
+            </div>
+            <p class="modal-text">Jangan marah ya cantik buat bercandaan aja aku susah banget nyari foto yang lucu, muka km cantik semua. Love you! 😘</p>
+        </div>
+    </div>
+    
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content-img" id="img01">
+        <div id="caption"></div>
+    </div>
+
+    <!-- Audio -->
+    <audio id="birthday-music-isi" src="music/bruno.mp3" loop></audio>
+
+    <!-- Tombol kontrol musik -->
+    <button id="musicControl">⏸ Pause</button>
+
+    <!-- Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    
+    <!-- JS Eksternal -->
+    <script src="script.js"></script>
+
+    <!-- JS Internal untuk musik & confetti -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const modal = document.getElementById("birthdayModal");
+            const closeModalBtn = document.getElementById("closeModal");
+            const birthdayMusic = document.getElementById("birthday-music-isi");
+            const musicControl = document.getElementById("musicControl");
+            let isPlaying = false;
+
+            closeModalBtn.addEventListener("click", () => {
+                modal.style.display = "none"; 
+                birthdayMusic.play(); 
+                isPlaying = true;
+                musicControl.style.display = "block"; // tampilkan tombol kontrol
+
+                // Confetti efek
+                confetti({
+                    particleCount: 200,
+                    spread: 120,
+                    origin: { y: 0.6 }
+                });
+            });
+
+            // Fungsi tombol kontrol musik
+            musicControl.addEventListener("click", () => {
+                if (isPlaying) {
+                    birthdayMusic.pause();
+                    musicControl.textContent = "▶ Play";
+                } else {
+                    birthdayMusic.play();
+                    musicControl.textContent = "⏸ Pause";
+                }
+                isPlaying = !isPlaying;
+            });
+        });
+    </script>
+</body>
+</html>

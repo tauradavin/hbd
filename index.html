@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Untuk Sayangku</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="icon" href="images/birthday-cake.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #f0e68c, #ff4500, #ff1493);
+            background-size: 200% 200%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            animation: background-animate 20s infinite alternate;
+        }
+        @keyframes background-animate {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: pop-in 1s ease-out;
+            max-width: 90%;
+            width: 500px;
+            box-sizing: border-box;
+        }
+        @keyframes pop-in {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .content-slide {
+            display: none; /* Sembunyikan semua slide secara default */
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .content-slide.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .image {
+            width: 300px; /* Tambahkan baris ini */
+            height: 350px; /* Tambahkan baris ini */
+            object-fit: cover; /* Sangat disarankan untuk menjaga proporsi */
+            margin: 20px 0;
+        }
+        .main-text {
+            font-size: 2em;
+            color: #1a237e;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .sub-text {
+            font-size: 1.1em;
+            color: #424242;
+            margin-bottom: 20px;
+        }
+        .button {
+            padding: 12px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 50px;
+            border: none;
+            background: #1a237e;
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .button:hover {
+            transform: scale(1.05);
+        }
+        .music-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 2em;
+            color: #fff;
+            cursor: pointer;
+            animation: rotate 3s infinite linear;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <span class="music-icon" id="music-icon">🎵</span>
+    <div class="container">
+        <div class="content-slide active">
+            <img src="images/gif1.gif" alt="Gif Atas" class="image" />
+            <div class="main-text">Happy birthday sayang</div>
+            <button class="button next-btn">tap ❤︎</button>
+        </div>
+
+        <div class="content-slide">
+            <img src="images/gif2.gif" alt="Gambar 2" class="image" />
+            <div class="main-text">You get more amazing every year. happy birthday, baby.</div>
+            <button class="button next-btn">open it ❤︎</button>
+        </div>
+
+        <div class="content-slide">
+            <img src="images/gif3.gif" alt="Gambar 3" class="image" />
+            <div class="main-text">As you get older, you just get more and more stunning to me</div>
+            <button class="button next-btn">❤︎</button>
+        </div>
+
+        <div class="content-slide">
+            <img src="images/gif4.gif" alt="Gambar 4" class="image" />
+            <div class="main-text">you deserve all the love in the world today and always 💜</div>
+            <button class="button next-btn">open this (♡(˶ᵔ ᵕ ᵔ˶)♡)</button>
+        </div>
+
+        <div class="content-slide">
+            <img src="images/gif5.gif" alt="Foto utama" class="image" />
+            <div class="main-text">Selamat Ulang Tahun, Sayangku! 🎉</div>
+            <div class="sub-text">Klik di bawah ya sayang</div>
+            <button class="button" onclick="window.location.href='isi.html';">Lanjut</button>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <!-- <audio id="birthday-music" src="music/hbd.mp3" loop></audio> -->
+    <audio id="birthday-music" src="music/hbd.mp3" loop muted></audio>
+    <script>
+        const music = document.getElementById('birthday-music');
+        const musicIcon = document.getElementById('music-icon');
+        const slides = document.querySelectorAll('.content-slide');
+        const nextButtons = document.querySelectorAll('.next-btn');
+        let currentSlide = 0;
+
+        // musicIcon.addEventListener('click', () => {
+        //     if (music.paused) {
+        //         music.play();
+        //         musicIcon.style.animationPlayState = 'running';
+        //     } else {
+        //         music.pause();
+        //         musicIcon.style.animationPlayState = 'paused';
+        //     }
+        // });
+
+        window.addEventListener('load', () => {
+    music.play().then(() => {
+        // Autoplay berhasil! Unmute audionya
+        music.muted = false;
+        musicIcon.style.animationPlayState = 'running';
+        console.log("Musik diputar otomatis setelah interaksi.");
+    }).catch(error => {
+        // Autoplay gagal, biarkan pengguna klik
+        console.log("Autoplay diblokir. Pengguna harus berinteraksi untuk memutar musik.");
+    });
+});
+
+nextButtons.forEach((button, index) => {
+    button.addEventListener('click', () => {
+        // Jika ini tombol pertama, putar musiknya
+        if (index === 0 && music.muted) {
+            music.muted = false;
+            music.play();
+            musicIcon.style.animationPlayState = 'running';
+        }
+        
+        // Sembunyikan slide saat ini
+        slides[currentSlide].classList.remove('active');
+        
+        // Pindah ke slide berikutnya
+        currentSlide++;
+
+        // Tampilkan slide berikutnya
+        if (currentSlide < slides.length) {
+            slides[currentSlide].classList.add('active');
+            confetti({
+                particleCount: 150,
+                spread: 120,
+                origin: { y: 0.6 }
+            });
+        }
+    });
+});
+    </script>
+</body>
+</html>
